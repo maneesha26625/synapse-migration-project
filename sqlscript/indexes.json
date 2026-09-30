@@ -1,0 +1,17 @@
+{
+	"name": "indexes",
+	"properties": {
+		"content": {
+			"query": "CREATE INDEX IDX_PuLocationKey ON [dw].[FactCabTrip] (PULocationKey);\nGO\n\nCREATE INDEX IDX_DOLocationKey ON [dw].[FactCabTrip] (DOLocationKey);\nGO",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "TransportDW",
+				"poolName": "TransportDW"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

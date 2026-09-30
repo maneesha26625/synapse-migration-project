@@ -1,0 +1,19 @@
+{
+	"name": "PL_Serverless_Test",
+	"properties": {
+		"activities": [
+			{
+				"name": "Serverless_Assessment",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 1
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-09-29T11:37:33Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

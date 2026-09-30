@@ -1,0 +1,19 @@
+{
+	"name": "PL_Validation",
+	"properties": {
+		"activities": [
+			{
+				"name": "Validation_Checkpoint",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 1
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-09-29T11:37:44Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

@@ -1,0 +1,76 @@
+{
+	"name": "NB_Read_Raw_Data",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 5,
+		"bigDataPool": {
+			"referenceName": "transportation",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": false
+		},
+		"metadata": {
+			"language_info": {
+				"name": "python"
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"# Generate migration-test source data.\n",
+					"storage = \"abfss://migrationcontainer@transportationmigration.dfs.core.windows.net\"\n",
+					"\n",
+					"customers = [\n",
+					"    (\"C001\", \"Asha\", \"Hyderabad\"),\n",
+					"    (\"C002\", \"Ravi\", \"Vijayawada\"),\n",
+					"    (\"C003\", \"Priya\", \"Bengaluru\"),\n",
+					"    (\"C004\", \"Arjun\", \"Chennai\")\n",
+					"]\n",
+					"\n",
+					"sales = [\n",
+					"    (\"S001\", \"C001\", \"Laptop\", 65000),\n",
+					"    (\"S002\", \"C002\", \"Phone\", 30000),\n",
+					"    (\"S003\", \"C001\", \"Monitor\", 18000),\n",
+					"    (\"S004\", \"C003\", \"Keyboard\", 2500),\n",
+					"    (\"S005\", \"C004\", \"Laptop\", 72000)\n",
+					"]\n",
+					"\n",
+					"customers_df = spark.createDataFrame(\n",
+					"    customers,\n",
+					"    [\"CustomerId\", \"CustomerName\", \"City\"]\n",
+					")\n",
+					"\n",
+					"sales_df = spark.createDataFrame(\n",
+					"    sales,\n",
+					"    [\"SaleId\", \"CustomerId\", \"Product\", \"Amount\"]\n",
+					")\n",
+					"\n",
+					"customers_df.coalesce(1).write.mode(\"overwrite\").option(\"header\", \"true\").csv(\n",
+					"    storage + \"/migration-test/csv/customers\"\n",
+					")\n",
+					"\n",
+					"sales_df.coalesce(1).write.mode(\"overwrite\").option(\"header\", \"true\").csv(\n",
+					"    storage + \"/migration-test/csv/sales\"\n",
+					")\n",
+					"\n",
+					"customers_df.write.mode(\"overwrite\").parquet(\n",
+					"    storage + \"/migration-test/parquet/customers\"\n",
+					")\n",
+					"\n",
+					"sales_df.write.mode(\"overwrite\").parquet(\n",
+					"    storage + \"/migration-test/parquet/sales\"\n",
+					")\n",
+					"\n",
+					"print(\"Migration test CSV and Parquet data created successfully.\")\n"
+				]
+			}
+		]
+	}
+}

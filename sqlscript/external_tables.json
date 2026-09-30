@@ -1,0 +1,17 @@
+{
+	"name": "external_tables",
+	"properties": {
+		"content": {
+			"query": "CREATE MASTER KEY ENCRYPTION BY PASSWORD = 'maneeshakancharana14@';\n\nIF NOT EXISTS (\n    SELECT 1\n    FROM sys.external_data_sources\n    WHERE name = 'transportdw_transportationmigration_dfs_core_windows'\n)\nBEGIN\n    CREATE EXTERNAL DATA SOURCE [transportdw_transportationmigration_dfs_core_windows]\n    WITH\n    (\n        LOCATION = 'abfss://migrationcontainer@transportationmigration.dfs.core.windows.net',\n        TYPE = HADOOP,\n        CREDENTIAL = [SynapseManagedIdentity]\n    );\nEND\nGO\n\nCREATE EXTERNAL TABLE stage.External_NYCCabTrip_Green (\n\t[VendorID] varchar(8000),\n\t[lpep_pickup_datetime] varchar(8000),\n\t[lpep_dropoff_datetime] varchar(8000),\n\t[store_and_fwd_flag] varchar(8000),\n\t[RatecodeID] varchar(8000),\n\t[PULocationID] varchar(8000),\n\t[DOLocationID] varchar(8000),\n\t[passenger_count] varchar(8000),\n\t[trip_distance] varchar(8000),\n\t[fare_amount] varchar(8000),\n\t[extra] varchar(8000),\n\t[mta_tax] varchar(8000),\n\t[tip_amount] varchar(8000),\n\t[tolls_amount] varchar(8000),\n\t[ehail_fee] varchar(8000),\n\t[improvement_surcharge] varchar(8000),\n\t[total_amount] varchar(8000),\n\t[payment_type] varchar(8000),\n\t[trip_type] varchar(8000),\n\t[congestion_surcharge] varchar(8000)\n\t)\n\tWITH (\n\tLOCATION = 'migration-test',\n\tDATA_SOURCE = [transportdw_transportationmigration_dfs_core_windows],\n\tFILE_FORMAT = [SynapseParquetFormat],\n\tREJECT_TYPE = VALUE,\n\tREJECT_VALUE = 0\n\t)\nGO\n\nCREATE EXTERNAL TABLE stage.External_NYCCabTrip_Yellow (\n    VendorID                varchar(8000),\n    lpep_pickup_datetime    varchar(8000),\n    lpep_dropoff_datetime   varchar(8000),\n    passenger_count         varchar(8000),\n    trip_distance           varchar(8000),\n    RatecodeID              varchar(8000),\n    store_and_fwd_flag      varchar(8000),\n    PULocationID            varchar(8000),\n    DOLocationID            varchar(8000),\n    payment_type            varchar(8000),\n    fare_amount             varchar(8000),\n    extra                   varchar(8000),\n    mta_tax                 varchar(8000),\n    tip_amount              varchar(8000),\n    tolls_amount            varchar(8000),\n    improvement_surcharge   varchar(8000),\n    total_amount            varchar(8000),\n    congestion_surcharge    varchar(8000)\n\t)\n\tWITH (\n\tLOCATION = 'migration-test',\n\tDATA_SOURCE = [transportdw_transportationmigration_dfs_core_windows],\n\tFILE_FORMAT = [SynapseParquetFormat],\n\tREJECT_TYPE = VALUE,\n\tREJECT_VALUE = 0\n\t)\nGO\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "TransportDW",
+				"poolName": "TransportDW"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

@@ -1,0 +1,19 @@
+{
+	"name": "PL_SQL_Object_Test",
+	"properties": {
+		"activities": [
+			{
+				"name": "SQL_Object_Assessment",
+				"type": "Wait",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"waitTimeInSeconds": 1
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2026-09-29T11:37:21Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

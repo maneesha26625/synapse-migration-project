@@ -1,0 +1,18 @@
+{
+	"name": "SQL_Serverless_Validation",
+	"properties": {
+		"description": "Migration accelerator serverless SQL fixture",
+		"content": {
+			"query": "-- Validation script for the migration test ecosystem.\n-- Run against the Built-in/serverless SQL pool after PL_Spark_Test has completed.\nSELECT 'CSV' AS TestType, COUNT(*) AS RowCount\nFROM OPENROWSET(\n    BULK 'https://transportationmigration.dfs.core.windows.net/migration-test/csv/sales/*.csv',\n    FORMAT = 'CSV',\n    PARSER_VERSION = '2.0',\n    HEADER_ROW = TRUE\n) AS rows;\n\nSELECT 'PARQUET' AS TestType, COUNT(*) AS RowCount\nFROM OPENROWSET(\n    BULK 'https://transportationmigration.dfs.core.windows.net/migration-test/parquet/sales/*.parquet',\n    FORMAT = 'PARQUET'\n) AS rows;\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "master",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

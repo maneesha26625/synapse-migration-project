@@ -1,0 +1,10 @@
+{
+	"name": "JBD_Process_Cab_Data",
+	"properties": {
+		"targetBigDataPool": {
+			"type": "BigDataPoolReference"
+		},
+		"language": "python",
+		"scanFolder": false
+	}
+}

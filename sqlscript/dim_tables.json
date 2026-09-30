@@ -1,0 +1,17 @@
+{
+	"name": "dim_tables",
+	"properties": {
+		"content": {
+			"query": "----------------END - TRUNCATE TABLE dw.DimVendor;\nTRUNCATE TABLE dw.DimVendor;\nINSERT INTO dw.DimVendor VALUES (1,1,'Creative Mobile Technologies, LL');\nINSERT INTO dw.DimVendor VALUES (2,2,'VeriFone Inc.');\n\n----------------END - TRUNCATE TABLE dw.DimVendor;\nTRUNCATE TABLE dw.DimRate;\nINSERT INTO dw.DimRate VALUES (1,1,'Standard rate');\nINSERT INTO dw.DimRate VALUES (2,2,'JFK');\nINSERT INTO dw.DimRate VALUES (3,3,'Newark');\nINSERT INTO dw.DimRate VALUES (4,4,'Nassau or Westchester');\nINSERT INTO dw.DimRate VALUES (5,5,'Negotiated fare');\nINSERT INTO dw.DimRate VALUES (6,6,'Group ride');\n\n----------------END - TRUNCATE TABLE dw.DimPaymentType;\nTRUNCATE TABLE dw.DimPaymentType;\nINSERT INTO dw.DimPaymentType VALUES (1,1,'Credit card');\nINSERT INTO dw.DimPaymentType VALUES (2,2,'Cash');\nINSERT INTO dw.DimPaymentType VALUES (3,3,'No charge');\nINSERT INTO dw.DimPaymentType VALUES (4,4,'Dispute');\nINSERT INTO dw.DimPaymentType VALUES (5,5,'Unknown');\nINSERT INTO dw.DimPaymentType VALUES (6,6,'Voided trip');\n\n----------------END - TRUNCATE TABLE dw.DimPaymentType;\nTRUNCATE TABLE dw.DimTripType;\nINSERT INTO dw.DimTripType VALUES (1,1,'Street-hail');\nINSERT INTO dw.DimTripType VALUES (2,2,'Dispatch');\n\n----------------END - TRUNCATE TABLE dw.DimTripType;\nTRUNCATE TABLE dw.DimCabType;\nINSERT INTO dw.DimCabType VALUES (1,1,'Yellow');\nINSERT INTO dw.DimCabType VALUES (2,2,'Green');",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "TransportDW",
+				"poolName": "TransportDW"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

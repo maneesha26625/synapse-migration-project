@@ -1,0 +1,56 @@
+{
+	"name": "NB_Transform_Cab_Data",
+	"properties": {
+		"nbformat": 4,
+		"nbformat_minor": 5,
+		"bigDataPool": {
+			"referenceName": "transportation",
+			"type": "BigDataPoolReference"
+		},
+		"sessionProperties": {
+			"driverMemory": "28g",
+			"driverCores": 4,
+			"executorMemory": "28g",
+			"executorCores": 4,
+			"numExecutors": 2,
+			"runAsWorkspaceSystemIdentity": false
+		},
+		"metadata": {
+			"language_info": {
+				"name": "python"
+			}
+		},
+		"cells": [
+			{
+				"cell_type": "code",
+				"source": [
+					"# Read Parquet and create a transformed dataset.\n",
+					"storage = \"abfss://migrationcontainer@transportationmigration.dfs.core.windows.net\"\n",
+					"\n",
+					"sales_df = spark.read.parquet(\n",
+					"    storage + \"/migration-test/parquet/sales\"\n",
+					")\n",
+					"\n",
+					"customers_df = spark.read.parquet(\n",
+					"    storage + \"/migration-test/parquet/customers\"\n",
+					")\n",
+					"\n",
+					"result = (\n",
+					"    sales_df.join(customers_df, \"CustomerId\", \"left\")\n",
+					"    .groupBy(\"City\", \"Product\")\n",
+					"    .sum(\"Amount\")\n",
+					"    .withColumnRenamed(\"sum(Amount)\", \"TotalAmount\")\n",
+					")\n",
+					"\n",
+					"display(result)\n",
+					"\n",
+					"result.write.mode(\"overwrite\").parquet(\n",
+					"    storage + \"/migration-test/processed/sales_by_city_product\"\n",
+					")\n",
+					"\n",
+					"print(\"Transformation completed.\")\n"
+				]
+			}
+		]
+	}
+}
