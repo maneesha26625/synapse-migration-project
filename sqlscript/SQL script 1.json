@@ -1,0 +1,17 @@
+{
+	"name": "SQL script 1",
+	"properties": {
+		"content": {
+			"query": "CREATE PROCEDURE operation.usp_CabDataAssessment\nAS\nBEGIN\n\n    SELECT\n        ObjectName,\n        ObjectType,\n        Row_Count\n    FROM operation.vw_MigrationObjectCounts\n    ORDER BY ObjectType, ObjectName;\n\n    SELECT\n        SourceTable,\n        Row_Count\n    FROM operation.vw_CabSourceSummary\n    ORDER BY SourceTable;\n\nEND;\n------------------------------------------------------\nCREATE PROCEDURE operation.usp_CabDataValidation\nAS\nBEGIN\n\n    SELECT\n        'FactCabTrip' AS ValidationObject,\n        COUNT_BIG(*) AS Row_Count\n    FROM dw.FactCabTrip\n\n    UNION ALL\n\n    SELECT\n        'NYCCabTrip_Green',\n        COUNT_BIG(*)\n    FROM stage.NYCCabTrip_Green\n\n    UNION ALL\n\n    SELECT\n        'NYCCabTrip_Yellow',\n        COUNT_BIG(*)\n    FROM stage.NYCCabTrip_Yellow;\n\nEND;\n\nSELECT\n    s.name AS SchemaName,\n    o.name AS ObjectName,\n    o.type_desc AS ObjectType\nFROM sys.objects o\nJOIN sys.schemas s\n    ON o.schema_id = s.schema_id\nWHERE s.name = 'operation'\nORDER BY o.type_desc, o.name;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "TransportDW",
+				"poolName": "TransportDW"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}

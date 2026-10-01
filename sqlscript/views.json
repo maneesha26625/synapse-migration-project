@@ -1,0 +1,17 @@
+{
+	"name": "views",
+	"properties": {
+		"content": {
+			"query": "CREATE VIEW operation.vw_CabSourceSummary\nAS\n\nSELECT\n    'stage.NYCCabTrip_Green' AS SourceTable,\n    COUNT_BIG(*) AS Row_Count\nFROM stage.NYCCabTrip_Green\n\nUNION ALL\n\nSELECT\n    'stage.NYCCabTrip_Yellow' AS SourceTable,\n    COUNT_BIG(*) AS Row_Count\nFROM stage.NYCCabTrip_Yellow;\n------------------------------------------------------\nCREATE VIEW operation.vw_MigrationObjectCounts\nAS\n\nSELECT\n    'dw.DimCabType' AS ObjectName,\n    'Dimension Table' AS ObjectType,\n    COUNT_BIG(*) AS Row_Count\nFROM dw.DimCabType\n\nUNION ALL\n\nSELECT\n    'dw.DimLocation',\n    'Dimension Table',\n    COUNT_BIG(*)\nFROM dw.DimLocation\n\nUNION ALL\n\nSELECT\n    'dw.DimPaymentType',\n    'Dimension Table',\n    COUNT_BIG(*)\nFROM dw.DimPaymentType\n\nUNION ALL\n\nSELECT\n    'dw.DimRate',\n    'Dimension Table',\n    COUNT_BIG(*)\nFROM dw.DimRate\n\nUNION ALL\n\nSELECT\n    'dw.DimTripType',\n    'Dimension Table',\n    COUNT_BIG(*)\nFROM dw.DimTripType\n\nUNION ALL\n\nSELECT\n    'dw.DimVendor',\n    'Dimension Table',\n    COUNT_BIG(*)\nFROM dw.DimVendor\n\nUNION ALL\n\nSELECT\n    'dw.FactCabTrip',\n    'Fact Table',\n    COUNT_BIG(*)\nFROM dw.FactCabTrip\n\nUNION ALL\n\nSELECT\n    'stage.NYCCabTrip_Green',\n    'Stage Table',\n    COUNT_BIG(*)\nFROM stage.NYCCabTrip_Green\n\nUNION ALL\n\nSELECT\n    'stage.NYCCabTrip_Yellow',\n    'Stage Table',\n    COUNT_BIG(*)\nFROM stage.NYCCabTrip_Yellow;",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "TransportDW",
+				"poolName": "TransportDW"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
